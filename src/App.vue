@@ -23,7 +23,7 @@
 }
 
 .box {
-    background-color: red;
+    background-color: blue;
     width: 100px;
     height: 100px;
 }
