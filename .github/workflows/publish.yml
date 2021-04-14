@@ -32,17 +32,13 @@ jobs:
 
             # 上传阿里云
             - name: 发布到阿里云
-              uses: easingthemes/ssh-deploy@v2.1.1
+              uses: AEnterprise/rsync-deploy@v1.0
               env:
-                  # 私钥
-                  SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-                  # scp参数
-                  ARGS: "-avzr --delete"
-                  # 源目录
-                  SOURCE: "dist"
-                  # 服务器ip：换成你的服务器IP
-                  REMOTE_HOST: "8.129.39.14"
-                  # 用户
-                  REMOTE_USER: "root"
-                  # 目标地址
                   TARGET: "/root/vue-in-action"
+                  DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }} # 引用配置，SSH私钥
+                  ARGS: -avz --delete --exclude='*.pyc' # rsync参数，排除.pyc文件
+                  SERVER_PORT: "22" # SSH端口
+                  FOLDER: "dist" # 要推送的文件夹，路径相对于代码仓库的根目录
+                  SERVER_IP: "8.129.39.14" # 引用配置，服务器的host名（IP或者域名domain.com）
+                  USERNAME: "root" # 引用配置，服务器登录名
+                  SERVER_DESTINATION: /root/vue-in-action/ # 部署到目标文件夹
